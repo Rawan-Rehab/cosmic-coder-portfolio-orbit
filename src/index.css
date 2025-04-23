@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -83,20 +83,22 @@
 
   .cosmic-button:hover {
     @apply text-white border-transparent shadow-lg;
-    box-shadow: 0 0 15px theme('colors.space.purple');
+    box-shadow: 0 0 25px theme('colors.space.purple');
   }
   
   .cosmic-card {
-    @apply relative overflow-hidden rounded-lg p-6 transition-all duration-300;
+    @apply relative overflow-hidden rounded-lg p-6 transition-all duration-500;
     background: rgba(26, 31, 44, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     border: 1px solid rgba(155, 135, 245, 0.2);
+    transform: perspective(800px) rotateY(0deg);
   }
   
   .cosmic-card:hover {
-    @apply transform -translate-y-1 shadow-lg;
+    @apply transform -translate-y-2 shadow-lg;
     border-color: theme('colors.space.purple');
-    box-shadow: 0 5px 20px rgba(155, 135, 245, 0.3);
+    box-shadow: 0 5px 25px rgba(155, 135, 245, 0.4);
+    transform: perspective(800px) rotateY(5deg);
   }
 
   .nav-link {
@@ -127,6 +129,16 @@
     @apply bg-space-purple text-white shadow-md;
     transform: translateY(-2px);
   }
+  
+  .space-planet {
+    @apply absolute rounded-full opacity-75 shadow-2xl;
+    box-shadow: 0 0 50px 10px rgba(255, 255, 255, 0.2);
+    filter: blur(1px);
+  }
+  
+  .orbit-animation {
+    animation: orbit 20s linear infinite;
+  }
 }
 
 #stars-container {
@@ -141,11 +153,60 @@
   pointer-events: none;
 }
 
+.planets-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .meteor {
   position: absolute;
   width: 2px;
-  height: 50px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
   animation: meteor 5s linear infinite;
   border-radius: 9999px;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(150px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(150px) rotate(-360deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 15px 5px rgba(155, 135, 245, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px 8px rgba(155, 135, 245, 0.6);
+  }
+}
+
+@keyframes hover-vertical {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes meteor {
+  0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
 }

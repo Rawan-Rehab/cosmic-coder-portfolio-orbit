@@ -81,6 +81,9 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
+			backgroundSize: {
+				'size-200': '200% 200%',
+			},
 			keyframes: {
 				'accordion-down': {
 					from: { height: '0', opacity: '0' },
@@ -92,11 +95,11 @@ export default {
 				},
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
-					'50%': { transform: 'translateY(-20px)' }
+					'50%': { transform: 'translateY(-30px)' }
 				},
 				'pulse-slow': {
-					'0%, 100%': { opacity: '1' },
-					'50%': { opacity: '0.7' }
+					'0%, 100%': { opacity: '1', transform: 'scale(1)' },
+					'50%': { opacity: '0.7', transform: 'scale(0.95)' }
 				},
 				'spin-slow': {
 					'0%': { transform: 'rotate(0deg)' },
@@ -116,16 +119,51 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					}
+				},
+				'scale-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.9)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: 'top left' },
+					'50%': { backgroundPosition: 'top right' },
+					'100%': { backgroundPosition: 'top left' }
+				},
+				'ping': {
+					'75%, 100%': {
+						transform: 'scale(1.5)',
+						opacity: '0'
+					}
+				},
+				'bounce': {
+					'0%, 100%': {
+						transform: 'translateY(0)',
+						animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+					},
+					'50%': {
+						transform: 'translateY(-25%)',
+						animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'float': 'float 6s ease-in-out infinite',
+				'float': 'float 8s ease-in-out infinite',
 				'pulse-slow': 'pulse-slow 4s ease-in-out infinite',
-				'spin-slow': 'spin-slow 25s linear infinite',
+				'spin-slow': 'spin-slow 30s linear infinite',
 				'meteor': 'meteor 5s linear infinite',
-				'fade-in-up': 'fade-in-up 0.5s ease-out'
+				'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
+				'scale-in': 'scale-in 0.5s ease-out',
+				'shimmer': 'shimmer 8s ease-in-out infinite',
+				'ping': 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite',
+				'bounce': 'bounce 1s infinite'
 			},
 			backgroundImage: {
 				'space-gradient': 'linear-gradient(to bottom, #1A1F2C, #403E43)',

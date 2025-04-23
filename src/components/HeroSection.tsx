@@ -1,10 +1,11 @@
 
 import { useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Rocket, Star } from 'lucide-react';
 
 const HeroSection = () => {
   const astronautRef = useRef<HTMLDivElement>(null);
   const planetRef = useRef<HTMLDivElement>(null);
+  const starsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -12,11 +13,15 @@ const HeroSection = () => {
       const y = e.clientY / window.innerHeight;
       
       if (astronautRef.current) {
-        astronautRef.current.style.transform = `translate(${x * 20}px, ${y * 10}px)`;
+        astronautRef.current.style.transform = `translate(${x * 30}px, ${y * 20}px)`;
       }
       
       if (planetRef.current) {
-        planetRef.current.style.transform = `translate(${-x * 15}px, ${-y * 15}px)`;
+        planetRef.current.style.transform = `translate(${-x * 25}px, ${-y * 25}px) rotate(${x * 10}deg)`;
+      }
+      
+      if (starsRef.current) {
+        starsRef.current.style.transform = `translate(${-x * 10}px, ${-y * 10}px)`;
       }
     };
     
@@ -28,61 +33,76 @@ const HeroSection = () => {
   }, []);
   
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Decorative elements */}
       <div 
         ref={planetRef}
-        className="absolute top-1/4 -right-20 w-64 h-64 rounded-full bg-space-purple opacity-10 animate-spin-slow"
+        className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-space-purple to-blue-400 opacity-10 animate-spin-slow"
       ></div>
       
       <div 
-        ref={astronautRef}
-        className="absolute bottom-1/4 left-20 w-20 h-20 lg:w-32 lg:h-32 opacity-20 animate-float"
+        ref={starsRef}
+        className="absolute inset-0 pointer-events-none"
       >
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M12 22V19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M12 5V2" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M5 12H2" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M22 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M19.7778 19.7778L17.5558 17.5558" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M6.44427 6.44427L4.22217 4.22217" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M19.7778 4.22217L17.5558 6.44427" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M6.44427 17.5558L4.22217 19.7778" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        <div className="absolute top-1/4 left-1/5 w-2 h-2 bg-white rounded-full animate-pulse-slow"></div>
+        <div className="absolute top-1/3 left-3/4 w-3 h-3 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '0.5s'}}></div>
+        <div className="absolute top-2/3 left-1/4 w-2 h-2 bg-white rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+      </div>
+      
+      <div 
+        ref={astronautRef}
+        className="absolute bottom-1/4 left-20 w-32 h-32 lg:w-48 lg:h-48 opacity-80 animate-float"
+      >
+        <div className="relative w-full h-full">
+          <Rocket 
+            size={48} 
+            className="absolute top-0 left-0 w-full h-full text-space-purple animate-pulse-slow"
+          />
+          <div className="absolute -bottom-10 -left-10 w-20 h-1 bg-gradient-to-r from-space-purple to-transparent opacity-30 animate-pulse-slow"></div>
+        </div>
       </div>
       
       <div className="container mx-auto px-6">
-        <div className="relative z-10 text-center max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-space-purple to-blue-400">
-            Rawan Mohamed Rehab
-          </h1>
+        <div className="relative z-10 text-center max-w-4xl mx-auto">
+          <div className="inline-block relative mb-6">
+            <Star className="absolute -top-10 -left-10 text-space-purple animate-pulse-slow opacity-70" />
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-space-purple via-blue-400 to-space-purple bg-size-200 animate-shimmer">
+              Rawan Mohamed Rehab
+            </h1>
+            <Star className="absolute -bottom-10 -right-10 text-space-blue animate-pulse-slow opacity-70" style={{animationDelay: '1s'}}/>
+          </div>
           
-          <h2 className="text-xl md:text-2xl font-mono text-white mb-8">
-            <span className="inline-block">Frontend</span> <span className="text-space-purple inline-block">Developer</span>
-          </h2>
+          <div className="relative mb-8">
+            <h2 className="text-2xl md:text-3xl font-mono text-white inline-block">
+              <span className="inline-block relative">
+                Frontend
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-space-purple to-transparent"></span>
+              </span> 
+              <span className="text-space-purple inline-block ml-3">Developer</span>
+            </h2>
+            <div className="absolute -right-8 top-0 w-2 h-2 rounded-full bg-space-purple animate-ping"></div>
+          </div>
           
-          <p className="text-lg md:text-xl text-gray-300 mb-10">
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             Crafting stellar user experiences with modern web technologies
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <a 
               href="#contact" 
-              className="cosmic-button"
+              className="cosmic-button group"
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               Contact Me
-              <ArrowRight className="ml-2 inline" size={16} />
+              <ArrowRight className="ml-2 inline transition-transform duration-300 group-hover:translate-x-1" size={18} />
             </a>
             
             <a 
               href="#projects" 
-              className="text-white underline underline-offset-4 hover:text-space-purple transition-colors"
+              className="text-white underline decoration-space-purple decoration-2 underline-offset-4 hover:text-space-purple transition-colors"
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -92,10 +112,24 @@ const HeroSection = () => {
             </a>
           </div>
           
-          <div className="mt-8 text-gray-400">
-            <p>rawanrehab929@gmail.com</p>
+          <div className="mt-10 text-gray-400 p-2 rounded-lg backdrop-blur-sm bg-white/5 inline-block">
+            <p className="font-mono">rawanrehab929@gmail.com</p>
           </div>
         </div>
+      </div>
+      
+      {/* Animated scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce">
+        <a 
+          href="#about"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          aria-label="Scroll down"
+        >
+          <ArrowRight className="transform rotate-90 text-space-purple" size={36} />
+        </a>
       </div>
     </section>
   );

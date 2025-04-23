@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Code, ExternalLink } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -103,9 +103,15 @@ const ProjectsSection = () => {
   return (
     <section id="projects" className="py-20">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          <span className="text-space-purple">My</span> Projects
-        </h2>
+        <div className="relative mb-12">
+          <div className="flex justify-center mb-2">
+            <Code size={24} className="text-space-purple" />
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-center">
+            <span className="text-space-purple">My</span> Projects
+          </h2>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-space-purple to-transparent"></div>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
@@ -116,20 +122,30 @@ const ProjectsSection = () => {
               }`}
               data-index={index}
               onClick={() => openModal(project)}
+              style={{animationDelay: `${index * 0.1}s`}}
             >
-              <div className="h-40 overflow-hidden rounded mb-4">
+              <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-space-purple opacity-70 group-hover:animate-ping"></div>
+              <div className="h-44 overflow-hidden rounded-lg mb-4 border border-gray-800">
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:rotate-1"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-space-dark to-transparent opacity-50"></div>
               </div>
               
-              <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-space-purple transition-colors">{project.title}</h3>
               
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.technologies.map((tech, i) => (
-                  <span key={i} className="skill-badge">{tech}</span>
+                  <span 
+                    key={i} 
+                    className="skill-badge"
+                    style={{
+                      animationDelay: `${i * 0.05}s`,
+                      transitionDelay: `${i * 0.05}s`
+                    }}
+                  >{tech}</span>
                 ))}
               </div>
               
@@ -146,16 +162,17 @@ const ProjectsSection = () => {
       
       {/* Project Modal */}
       {activeProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-scale-in">
           <div 
             className="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm"
             onClick={closeModal}
           ></div>
           
-          <div className="relative z-10 bg-space-dark rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <div className="relative z-10 bg-gradient-to-br from-space-dark to-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-space-purple/20">
             <button 
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors hover:rotate-90 transform duration-300"
               onClick={closeModal}
+              aria-label="Close modal"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -164,35 +181,44 @@ const ProjectsSection = () => {
             </button>
             
             <div className="p-8">
-              <div className="h-64 overflow-hidden rounded-lg mb-6">
+              <div className="h-64 overflow-hidden rounded-lg mb-6 border border-space-purple/20 relative">
                 <img 
                   src={activeProject.image} 
                   alt={activeProject.title} 
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-space-dark to-transparent opacity-60"></div>
               </div>
               
-              <h3 className="text-3xl font-bold mb-4 text-white">{activeProject.title}</h3>
+              <h3 className="text-3xl font-bold mb-4 text-space-purple">{activeProject.title}</h3>
               
               <div className="flex flex-wrap gap-2 mb-6">
                 {activeProject.technologies.map((tech, i) => (
-                  <span key={i} className="skill-badge bg-space-purple">{tech}</span>
+                  <span key={i} className="skill-badge bg-space-purple">
+                    {tech}
+                  </span>
                 ))}
               </div>
               
-              <div className="mb-6">
-                <h4 className="text-xl font-semibold mb-2 text-space-purple">Description</h4>
+              <div className="mb-6 space-y-4">
+                <h4 className="text-xl font-semibold mb-2 text-space-purple flex items-center">
+                  <Code size={18} className="mr-2" />
+                  Description
+                </h4>
                 <p className="text-gray-300">{activeProject.description}</p>
-                <p className="text-gray-300 mt-4">This project demonstrates my ability to create intuitive user interfaces and implement complex functionality using modern web technologies.</p>
+                <p className="text-gray-300">This project demonstrates my ability to create intuitive user interfaces and implement complex functionality using modern web technologies.</p>
               </div>
               
-              <div className="mb-6">
-                <h4 className="text-xl font-semibold mb-2 text-space-purple">Key Features</h4>
+              <div className="mb-6 space-y-4">
+                <h4 className="text-xl font-semibold mb-2 text-space-purple flex items-center">
+                  <ExternalLink size={18} className="mr-2" />
+                  Key Features
+                </h4>
                 <ul className="list-disc list-inside text-gray-300 space-y-2">
-                  <li>Responsive design for all device sizes</li>
-                  <li>Interactive user interface with smooth animations</li>
-                  <li>Optimized performance and loading times</li>
-                  <li>Clean, maintainable code architecture</li>
+                  <li className="hover:text-white transition-colors">Responsive design for all device sizes</li>
+                  <li className="hover:text-white transition-colors">Interactive user interface with smooth animations</li>
+                  <li className="hover:text-white transition-colors">Optimized performance and loading times</li>
+                  <li className="hover:text-white transition-colors">Clean, maintainable code architecture</li>
                 </ul>
               </div>
             </div>
