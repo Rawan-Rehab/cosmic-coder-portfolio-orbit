@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import Background from "@/components/Background";
@@ -35,10 +34,14 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-space-gradient">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       <Background />
       <Navbar />
-      <HeroSection />
+      <HeroSection 
+        name="Abdallah Ali Rehab"
+        role="Senior Mobile Developer"
+        email="abdorehab95@gmail.com"
+      />
       <AboutSection />
       <ProjectsSection />
       <SkillsSection />
@@ -46,7 +49,6 @@ const Index = () => {
       <ContactSection />
       <Footer />
       
-      {/* Scroll to top button */}
       <button
         className={`fixed right-6 bottom-6 p-3 rounded-full bg-space-purple text-white shadow-lg transform transition-all duration-300 z-40 ${
           showScrollTop 

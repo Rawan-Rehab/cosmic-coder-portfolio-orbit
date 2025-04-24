@@ -104,9 +104,9 @@ const Background = () => {
     
     // Different positions for each planet
     const positions = [
-      { left: '15%', top: '20%', size: 80, color: 'linear-gradient(45deg, #ff9966, #ff5e62)' },
-      { left: '85%', top: '60%', size: 120, color: 'linear-gradient(45deg, #7F7FD5, #86A8E7)' },
-      { left: '70%', top: '15%', size: 60, color: 'linear-gradient(45deg, #654ea3, #eaafc8)' }
+      { left: '15%', top: '20%', size: 80, color: 'linear-gradient(45deg, #3B82F6, #8B5CF6)' },
+      { left: '85%', top: '60%', size: 120, color: 'linear-gradient(45deg, #6366F1, #A855F7)' },
+      { left: '70%', top: '15%', size: 60, color: 'linear-gradient(45deg, #60A5FA, #7C3AED)' }
     ];
     
     const pos = positions[index % positions.length];
